@@ -1,0 +1,61 @@
+<div class="block  min-h-screen">
+    <section aria-labelledby="features-heading" class="relative">
+        <div *ngIf="item"
+            class="aspect-h-2 aspect-w-3 overflow-hidden sm:aspect-w-5 lg:aspect-none lg:absolute lg:h-screen lg:w-1/2 lg:pr-4 xl:pr-16">
+            <div [ngClass]="{'opacity-100 translate-x-0': !loadedImage, 'opacity-0 -translate-x-full': loadedImage}"
+                class="absolute top-0 h-full w-full bg-slate-200 lg:h-full lg:w-full transition-all duration-700 ease-in">
+            </div>
+            <img [src]="item.image?.original" [alt]="item.name"
+                [ngClass]="{'opacity-100 translate-x-0': loadedImage, 'opacity-0 -translate-x-full': !loadedImage}"
+                class="absolute *:h-full w-full object-cover object-center lg:h-full lg:w-full transition-all duration-700 ease-in"
+                (load)="loadedImage = true">
+
+        </div>
+        <div class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:h-screen sm:pb-32 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:pt-32 overflow-y-auto"
+            *ngIf="item">
+            <div class="lg:col-start-2 px-4">
+                <p id="features-heading" *ngIf="item && item.network" class="font-medium text-gray-500">
+                    {{item.network.name}}
+                    ({{item.network.country.code}})</p>
+                <h1 class="mt-4 text-4xl font-bold tracking-tight text-gray-900">{{item.name}}</h1>
+                <div [innerHTML]="item.summary" class="mt-4 text-gray-500"></div>
+
+                <dl class="mt-10 grid grid-cols-1 gap-x-8 gap-y-10 text-sm sm:grid-cols-2">
+                    <div>
+                        <dd class="mt-2 text-gray-500">Type</dd>
+                        <dt class="font-medium text-gray-900">{{item.type}}</dt>
+                    </div>
+                    <div>
+                        <dd class="mt-2 text-gray-500">Language</dd>
+                        <dt class="font-medium text-gray-900">{{item.language}}</dt>
+                    </div>
+                    <div>
+                        <dd class="mt-2 text-gray-500">Language</dd>
+                        <dt class="font-medium text-gray-900">{{item.language}}</dt>
+                    </div>
+                    <div>
+                        <dd class="mt-2 text-gray-500">Genres</dd>
+                        <dt class="font-medium text-gray-900">{{item.genres?.join(', ')}}</dt>
+                    </div>
+                    <div>
+                        <dd class="mt-2 text-gray-500">Premiered</dd>
+                        <dt class="font-medium text-gray-900">{{item.premiered|date}}</dt>
+                    </div>
+                    <div *ngIf="item.ended">
+                        <dd class="mt-2 text-gray-500">Ended</dd>
+                        <dt class="font-medium text-gray-900">{{item.ended|date}}</dt>
+                    </div>
+                    <div>
+                        <dd class="mt-2 text-gray-500">Status</dd>
+                        <dt class="font-medium text-gray-900">{{item.status}}</dt>
+                    </div>
+                    <div *ngIf="item.schedule && item.schedule.time">
+                        <dd class="mt-2 text-gray-500">Schedule</dd>
+                        <dt class="font-medium text-gray-900">{{item.schedule.days?.join(',
+                            ')}} &#64; {{item.schedule.time}}h</dt>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </section>
+</div>

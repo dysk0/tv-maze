@@ -1,0 +1,67 @@
+<div class="relative" role="dialog" aria-modal="true">
+    <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+        <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+        </div>
+    </div>
+
+    <div class="fixed inset-0 ease-out duration-300 bg-gray-500 bg-opacity-25 transition-opacity"
+        [ngClass]="{'opacity-0': !items?.length , 'opacity-100': items?.length }"></div>
+
+    <div class="fixed inset-0 w-screen overflow-y-auto p-4 sm:p-6 md:p-20 ">
+        <div
+            class="relative mx-auto z-40 max-w-3xl transform divide-y divide-gray-100  rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+            <form [formGroup]="form" class="relative z-10 mt-28">
+
+                <svg class="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20"
+                    fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                        d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                        clip-rule="evenodd" />
+                </svg>
+                <input type="text" formControlName="query"
+                    class="h-12 w-full border-0 bg-white pl-11 pr-4 text-gray-800 placeholder:text-gray-400 focus:ring-0 sm:text-sm rounded-xl"
+                    placeholder="Type to search, find to watch..." role="combobox" aria-expanded="false"
+                    aria-controls="options">
+                <svg class="absolute right-4 top-3.5 h-5 w-5 text-gray-400" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" (click)="clearForm()" *ngIf="this.items?.length || form.get('query')?.value">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+            </form>
+
+            <div class="absolute w-full -mt-2 z-20  flex transform-gpu bg-white divide-x divide-gray-100 rounded-b-lg"
+                *ngIf="items?.length">
+                <div class=" max-h-96 min-w-0 flex-auto scroll-py-4 overflow-y-auto px-6 py-4 sm:h-96">
+
+                    <ul class="-mx-2 text-sm text-gray-700" id="recent" role="listbox">
+                        @for (item of items; track item) {
+                        <app-movie-list-item (click)="onNavigate(item)" [item]="item"></app-movie-list-item>
+
+                        }
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <!-- Empty state, show/hide based on command palette state -->
+            <div class="px-6 py-14 text-center text-sm sm:px-14" *ngIf="items?.length == 0 && form.get('query')?.value">
+                <svg class="mx-auto h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                </svg>
+                <p class="mt-4 font-semibold text-gray-900">No movies found</p>
+                <p class="mt-2 text-gray-500">We couldn’t find anything with that term. Please try again.</p>
+            </div>
+        </div>
+        <div
+            class="mt-48 -z-20 px-4 mx-auto max-w-screen-lg grid grid-cols-1  items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-5">
+            @for (item of todayShows; track item) {
+            <app-movie-card [item]="item"></app-movie-card>
+
+            }
+        </div>
+    </div>
+
+</div>
