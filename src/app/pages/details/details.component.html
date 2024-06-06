@@ -1,13 +1,13 @@
 <div class="block  min-h-screen">
-    <section aria-labelledby="features-heading" class="relative">
+    <section aria-labelledby="features-heading" class="block lg:relative">
         <div *ngIf="item"
             class="aspect-h-2 aspect-w-3 overflow-hidden sm:aspect-w-5 lg:aspect-none lg:absolute lg:h-screen lg:w-1/2 lg:pr-4 xl:pr-16">
             <div [ngClass]="{'opacity-100 translate-x-0': !loadedImage, 'opacity-0 -translate-x-full': loadedImage}"
-                class="absolute top-0 h-full w-full bg-slate-200 lg:h-full lg:w-full transition-all duration-700 ease-in">
+                class="lg:absolute top-0 h-full w-full bg-slate-200 lg:h-full lg:w-full transition-all duration-700 ease-in">
             </div>
             <img [src]="item.image?.original" [alt]="item.name"
                 [ngClass]="{'opacity-100 translate-x-0': loadedImage, 'opacity-0 -translate-x-full': !loadedImage}"
-                class="absolute *:h-full w-full object-cover object-center lg:h-full lg:w-full transition-all duration-700 ease-in"
+                class="lg:absolute *:h-full w-full object-cover object-center lg:h-full lg:w-full transition-all duration-700 ease-in"
                 (load)="loadedImage = true">
 
         </div>
